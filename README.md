@@ -1,119 +1,144 @@
-![Build Status](https://gitlab.com/pages/jekyll/badges/master/build.svg)
-![Jekyll Version](https://img.shields.io/gem/v/jekyll.svg)
+# Hydeout
 
----
+Hydeout updates the original [Hyde](https://github.com/poole/hyde)
+theme for [Jekyll](http://jekyllrb.com) 3.x and adds new functionality.
 
-Example [Jekyll] website using GitLab Pages.  View it live at https://pages.gitlab.io/jekyll
+![Desktop](/_screenshots/1.png?raw=true)
+<img alt="Mobile home page" src="/_screenshots/2.png?raw=true" width="300px" />
+<img alt="Mobile post page" src="/_screenshots/3.png?raw=true" width="300px" />
 
-[Learn more about GitLab Pages](https://pages.gitlab.io) or read the the [official GitLab Pages documentation](https://docs.gitlab.com/ce/user/project/pages/).
+### Usage
 
----
+Hydeout is available as the `jekyll-theme-hydeout` Ruby Gem.
+Add `gem "jekyll-theme-hydeout", "~> 3.4"` to your Gemfile and run
+`bundle install`.
 
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
-
-- [Getting Started](#getting-started)
-  - [Start by forking this repository](#start-by-forking-this-repository)
-  - [Start from a local Jekyll project](#start-from-a-local-jekyll-project)
-- [GitLab CI](#gitlab-ci)
-- [Using Jekyll locally](#using-jekyll-locally)
-- [GitLab User or Group Pages](#gitlab-user-or-group-pages)
-- [Did you fork this project?](#did-you-fork-this-project)
-- [Other examples](#other-examples)
-- [Troubleshooting](#troubleshooting)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-## Getting Started
-
-You can get started with GitLab Pages using Jekyll easily by either forking this repository or by uploading a new/existing Jekyll project.
-
-Remember you need to wait for your site to build before you will be able to see your changes.  You can track the build on the **Pipelines** tab.
-
-### Start by forking this repository
-
-1. Fork this repository.
-1. **IMPORTANT:** Remove the fork relationship.
-Go to **Settings (⚙)** > **Edit Project** and click the **"Remove fork relationship"** button.
-1. Enable Shared Runners.
-Go to **Settings (⚙)** > **Pipelines** and click the **"Enable shared Runners"** button.
-1. Rename the repository to match the name you want for your site.
-1. Edit your website through GitLab or clone the repository and push your changes.
-
-### Start from a local Jekyll project
-
-1. [Install][] Jekyll.
-1. Use `jekyll new` to create a new Jekyll Project.
-1. Add [this `.gitlab-ci.yml`](.gitlab-ci.yml) to the root of your project.
-1. Push your repository and changes to GitLab.
-
-## GitLab CI
-
-This project's static Pages are built by [GitLab CI][ci], following the steps
-defined in [`.gitlab-ci.yml`](.gitlab-ci.yml):
+Hydeout uses pagination, so if you have an `index.md`, you'll need to swap
+it with an `index.html` that uses the `index` layout:
 
 ```
-image: ruby:2.3
-
-variables:
-  JEKYLL_ENV: production
-
-pages:
-  script:
-  - bundle install
-  - bundle exec jekyll build -d public
-  artifacts:
-    paths:
-    - public
-  only:
-  - master
+---
+layout: index
+title: Home
+---
 ```
 
-## Using Jekyll locally
+### Keep It Simple
 
-To work locally with this project, you'll have to follow the steps below:
+In keeping with the original Hyde theme, Hydeout aims to keep the overall
+design lightweight and plugin-free. JavaScript is currently limited only
+to Disqus and Google Analytics (and is only loaded if you provide configuration
+variables).
 
-1. Fork, clone or download this project
-1. [Install][] Jekyll
-1. Download dependencies: `bundle`
-1. Build and preview: `bundle exec jekyll serve`
-1. Add content
+Hydeout makes heavy use of Flexbox in its CSS. If Flexbox is not available,
+the CSS degrades into a single column layout.
 
-The above commands should be executed from the root directory of this project.
+### Customization
 
-Read more at Jekyll's [documentation][].
+Hydeout replaces Hyde's class-based theming with the use
+of the following SASS variables:
 
-## GitLab User or Group Pages
+```scss
+$sidebar-bg-color: #202020 !default;
+$sidebar-sticky: true !default;
+$layout-reverse: false !default;
+$link-color: #268bd2 !default;
+```
 
-To use this project as your user/group website, you will need one additional
-step: just rename your project to `namespace.gitlab.io`, where `namespace` is
-your `username` or `groupname`. This can be done by navigating to your
-project's **Settings**.
+To override these variables, create your own `assets/css/main.scss` file.
+Define your own variables, then import in Hydeout's SCSS, like so:
 
-Read more about [user/group Pages][userpages] and [project Pages][projpages].
+```scss
+---
+# Jekyll needs front matter for SCSS files
+---
 
-## Did you fork this project?
+$sidebar-bg-color: #ac4142;
+$link-color: #ac4142;
+$sidebar-sticky: false;
+@import "hydeout";
+```
 
-If you forked this project for your own use, please go to your project's
-**Settings** and remove the forking relationship, which won't be necessary
-unless you want to contribute back to the upstream project.
+See the [_variables](_sass/hydeout/_variables.scss) file for other variables
+you can override.
 
-## Other examples
+You can see the full set of partials you can replace in the
+[`_includes`](_includes) folder, but there are a few worth noting:
 
-* [jekyll-branched](https://gitlab.com/pages/jekyll-branched) demonstrates how you can keep your GitLab Pages site in one branch and your project's source code in another.
-* The [jekyll-themes](https://gitlab.com/groups/jekyll-themes) group contains a collection of example projects you can fork (like this one) having different visual styles.
+* `_includes/copyright.html` - Insert your own copyright here.
 
-## Troubleshooting
+* `_includes/custom-head.html` - Insert custom head tags (e.g. to load your
+  own stylesheets)
 
-1. CSS is missing! That means two things:
-    * Either that you have wrongly set up the CSS URL in your templates, or
-    * your static generator has a configuration option that needs to be explicitly
-    set in order to serve static assets under a relative URL.
+* `_includes/custom-foot.html` - Insert custom elements at the end of the
+  body (e.g. for custom JS)
 
-[ci]: https://about.gitlab.com/gitlab-ci/
-[Jekyll]: http://jekyllrb.com/
-[install]: https://jekyllrb.com/docs/installation/
-[documentation]: https://jekyllrb.com/docs/home/
-[userpages]: https://docs.gitlab.com/ce/user/project/pages/introduction.html#user-or-group-pages
-[projpages]: https://docs.gitlab.com/ce/user/project/pages/introduction.html#project-pages
+* `_includes/custom-nav-links.html` - Additional nav links to insert at the
+  end of the list of links in the sidebar.
+
+  Pro-tip: The `nav`s in the sidebar are flexboxes. Use the `order` property
+  to order your links.
+
+* `_includes/custom-icon-links.html`- Additional icon links to insert at the
+  end of the icon links at the bottom of the sidebar. You can use the `order`
+  property to re-order.
+
+* `_includes/favicons.html` - Replace references to `favicon.ico` and
+  `favicon.png` with your own favicons references.
+
+* `_includes/font-includes.html` - The Abril Fatface font used for the site
+  title is loaded here. If you're overriding that font in the CSS, be sure
+  to also remove the font load reference here.
+
+### New Features
+
+* Hydeout adds a new tags page (accessible in the sidebar). Just create a
+  new page with the tags layout:
+
+  ```
+  ---
+  layout: tags
+  title: Tags
+  ---
+  ```
+
+* Hydeout adds a new "category" layout for dedicated category pages.
+  Category pages are automatically added to the sidebar. All other pages
+  must have `sidebar_link: true` in their front matter to show up in
+  the sidebar. To create a category page, use the `category` layout"
+
+  ```
+  ---
+  layout: category
+  title: My Category
+  ---
+
+  Description of "My Category"
+  ```
+
+* A simple redirect-to-Google search is available. Just create a page with
+  the `search` layout.
+
+  ```
+  ---
+  layout: search
+  title: Google Search
+  ---
+  ```
+
+* Disqus integration is ready out of the box. Just add the following to
+  your config file:
+
+  ```yaml
+  disqus:
+    shortname: my-disqus-shortname
+  ```
+
+  If you don't want Disqus or want to use something else, override
+  `comments.html`.
+
+* For Google Analytics support, define a `google_analytics` variable with
+  your property ID in your config file.
+
+There's also a bunch of minor tweaks and adjustments throughout the
+theme. Hope this works for you!
