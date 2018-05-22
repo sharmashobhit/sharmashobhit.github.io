@@ -23,33 +23,39 @@
 */
 
 body {
-  color: rgba(255,255,255,.75);
-  background-color: $sidebar-bg-color;
-  background-image: linear-gradient(
-    to bottom,
-    lighten($sidebar-bg-color, 7%),
-    darken($sidebar-bg-color, 7%));
+  color: $sidebar-title-color;
+  background-color: #a9a9a9;
+  background-image: url("data:image/svg+xml,%3Csvg width='40' height='12' viewBox='0 0 40 12' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 6.172L6.172 0h5.656L0 11.828V6.172zm40 5.656L28.172 0h5.656L40 6.172v5.656zM6.172 12l12-12h3.656l12 12h-5.656L20 3.828 11.828 12H6.172zm12 0L20 10.172 21.828 12h-3.656z' fill='%23b9b9b9' fill-opacity='0.4' fill-rule='evenodd'/%3E%3C/svg%3E");
   display: flex;
   flex-direction: column;
   min-width: 100vw;
   min-height: 100vh;
 }
 
+a{
+  &:hover{
+    text-decoration: none !important;
+
+  }
+}
 #sidebar {
   flex: 0 0 auto;
   padding: $section-spacing;
 
   .site-title {
-    font-family: "Abril Fatface", serif;
+    font-family: $sidebar-font-family;
     font-weight: normal;
     font-size: $large-font-size;
-    color: rgba(255,255,255,.75);
+    color: $sidebar-title-color;
     margin-top: 0;
     margin-bottom: $heading-spacing;
+    border-bottom: 2px solid $sidebar-title-color;
 
     a {
       color: inherit;
-      &:hover { color: $sidebar-title-color; }
+      &:hover {
+        color: $sidebar-title-color;
+      }
     }
 
     .back-arrow { margin-right: 0.5rem; }
@@ -61,7 +67,7 @@ body {
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-
+  border-left: 1px solid $body-color;
   > .content {
     flex-grow: 1;
   }

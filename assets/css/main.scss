@@ -3,5 +3,12 @@
 # only main files contain this front matter, not partials.
 ---
 
-$root-font-family: -apple-system, BlinkMacSystemFont, "Montserrat", Arial, sans-serif !default;
+$root-font-family: "Muli", sans-serif;
+$sidebar-font-family: $root-font-family;
+$sidebar-bg-color: #A9A9A9;
+$sidebar-title-color: #565656;
+$body-bg: #EFEFEF;
+$heading-color: #565656;
+$body-color: #565656;
+$link-color: #984B43;
 @import "hydeout";
