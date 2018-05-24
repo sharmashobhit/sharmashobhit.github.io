@@ -3,12 +3,13 @@
 # only main files contain this front matter, not partials.
 ---
 
-$root-font-family: "Muli", sans-serif;
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+$root-font-family: 'Raleway', sans-serif;
 $sidebar-font-family: $root-font-family;
-$sidebar-bg-color: #A9A9A9;
-$sidebar-title-color: #565656;
-$body-bg: #EFEFEF;
-$heading-color: #565656;
+$sidebar-bg-color: #333333;
+$sidebar-title-color: #d73438;
+$body-bg: #FFFFFF;
+$heading-color: #d73438;
 $body-color: #565656;
 $link-color: #984B43;
 @import "hydeout";

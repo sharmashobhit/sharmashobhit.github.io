@@ -30,6 +30,10 @@ article + *, .post-body ~ section {
 .page-title,
 .post-title {
   margin-top: 0;
+  border-top: 3px solid $heading-color;
+  display: inline-block;
+  padding-right: 1em;
+  text-transform: lowercase;
 }
 
 // h1-size h2
